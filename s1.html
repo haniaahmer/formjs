@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration form </title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+/** Variables **/
+
+:root {
+  --color-background: #cbd5e1;
+  --color-background-alt: #8ec6ff;
+  --color-border-active: #173db6;
+  --color-border-default: #94a3b8;
+  --color-highlight: #8ec6ff;
+  --color-primary: #144be1;
+  --color-primary-active: #19388f;
+  --color-text-default: #0f172a;
+  --color-text-muted: #475569;
+
+  --font-family-body: "Inter", sans-serif;
+}
+
+/** Base **/
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-family-body);
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+[type="checkbox"],
+[type="radio"],
+[type="range"] {
+  appearance: none;
+  flex-shrink: 0;
+  padding: 0;
+  user-select: none;
+}
+
+[type="checkbox"]:focus,
+[type="radio"]:focus,
+[type="range"]:focus {
+  outline: none;
+}
+
+/** Components **/
+
+.fs-form {
+  display: grid;
+  row-gap: 1.5rem;
+}
+
+.fs-form:where(.fs-layout__2-column) {
+  column-gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+fieldset {
+  display: grid;
+  margin: 1.5rem 0;
+  row-gap: 1.5rem;
+}
+
+.fs-form:where(.fs-layout__2-column) fieldset {
+  column-gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  grid-column: 1 / -1;
+}
+
+.fs-fieldset-title {
+  color: var(--color-text-default);
+  font-family: var(--font-family-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+  margin-bottom: 1.5rem;
+  grid-column: 1 / -1;
+}
+
+.fs-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.375rem;
+}
+
+.fs-label {
+  color: var(--color-text-default);
+  display: block;
+  font-family: var(--font-family-display);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+
+.fs-description {
+  color: var(--color-text-muted);
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.fs-button-group {
+  display: flex;
+  flex-direction: row-reverse;
+  column-gap: 1.5rem;
+}
+
+.fs-form:where(.fs-layout__2-column) .fs-button-group {
+  grid-column: 1 / -1;
+}
+
+.fs-button {
+  background-color: var(--color-primary);
+  border-radius: 0.375rem;
+  color: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  padding: 1rem 2rem;
+  transition-duration: 200ms;
+  transition-property: background-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fs-button:hover {
+  background-color: var(--color-primary-active);
+}
+
+.fs-button:focus-visible {
+  background-color: var(--color-primary-active);
+  outline: 3px solid var(--color-highlight);
+}
+
+.fs-input,
+.fs-select {
+  appearance: none;
+  border-radius: 0.375rem;
+  border-width: 0;
+  box-shadow: var(--color-border-default) 0 0 0 1px inset;
+  color: var(--color-text-default);
+  font-size: 1rem;
+  height: 2.5rem;
+  line-height: 1.5rem;
+  outline: none;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.fs-input:focus-visible,
+.fs-select:focus-visible {
+  box-shadow: var(--color-border-active) 0 0 0 1.5px inset;
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 0;
+}
+
+.fs-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.fs-checkbox-group,
+.fs-radio-group {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.fs-checkbox-field,
+.fs-radio-field {
+  column-gap: 0.5rem;
+  display: flex;
+}
+
+:is(.fs-checkbox-field, .fs-radio-field) .fs-label + .fs-description {
+  margin-top: 0.125rem;
+}
+
+.fs-checkbox-wrapper,
+.fs-radio-wrapper {
+  align-items: center;
+  display: flex;
+  height: 1.25rem;
+}
+
+.fs-checkbox,
+.fs-radio {
+  background-color: #fff;
+  border: 1px solid var(--color-text-default);
+  height: 1rem;
+  width: 1rem;
+}
+
+.fs-checkbox {
+  border-radius: 0.25rem;
+}
+
+.fs-radio {
+  border-radius: 100%;
+}
+
+.fs-checkbox:checked,
+.fs-radio:checked {
+  background-color: var(--color-primary);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-color: transparent;
+}
+
+.fs-checkbox:checked {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+}
+
+.fs-radio:checked {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+}
+
+.fs-checkbox:focus-visible,
+.fs-radio:focus-visible {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 0;
+}
+
+.fs-select {
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.fs-slider {
+  background: transparent;
+  cursor: pointer;
+  height: 1.25rem;
+  width: 100%;
+}
+
+.fs-slider::-moz-range-track {
+  background-color: var(--color-background);
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+.fs-slider::-webkit-slider-runnable-track {
+  background-color: var(--color-background);
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+.fs-slider::-moz-range-thumb {
+  background-color: var(--color-primary);
+  border: none; /* Removes extra border that FF applies */
+  border-radius: 50%;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.fs-slider::-webkit-slider-thumb {
+  appearance: none;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  height: 1.25rem;
+  margin-top: -0.375rem; /* Centers thumb on the track */
+  width: 1.25rem;
+}
+
+.fs-slider:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.fs-slider:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.fs-switch {
+  background-color: var(--color-background-alt);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='white'/%3e%3c/svg%3e");
+  background-position: left center;
+  background-repeat: no-repeat;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  height: 1.5rem;
+  transition-duration: 200ms;
+  transition-property: background-color, background-position;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  width: 2.75rem;
+}
+
+.fs-switch:checked {
+  background-color: var(--color-primary);
+  background-position: right center;
+}
+
+.fs-switch:focus-visible {
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 0;
+}
+
+.fs-textarea {
+  appearance: none;
+  border-radius: 0.375rem;
+  border-width: 0;
+  box-shadow: var(--color-border-default) 0 0 0 1px inset;
+  color: var(--color-primary);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  outline: none;
+  padding: 0.5rem 0.75rem;
+  resize: vertical;
+}
+
+.fs-textarea:focus-visible {
+  box-shadow: var(--color-border-active) 0 0 0 1.5px inset;
+  outline: 3px solid var(--color-highlight);
+  outline-offset: 0;
+}
+
+.fs-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/** Utilities **/
+
+.col-span-full {
+  grid-column: 1 / -1;
+}
+
+.fs-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.slider-label-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.slider-label-text {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  white-space: nowrap;
+}
+    </style>
+  </head>
+  <body>
+   <form
+  action="https://formspree.io/f/{FORM_ID}"
+  class="fs-form fs-layout__2-column"
+  target="_top"
+  method="POST"
+>
+  <fieldset>
+    <legend class="fs-fieldset-title">Personal Information</legend>
+    <div class="fs-field">
+      <label class="fs-label" for="full-name">Full Name</label>
+      <input
+        class="fs-input"
+        id="full-name"
+        name="full-name"
+        placeholder="Enter your full name"
+        required
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="email">Email</label>
+      <input
+        class="fs-input"
+        id="email"
+        name="email"
+        placeholder="Enter your email address"
+        required
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="phone-number">Phone Number</label>
+      <input
+        class="fs-input"
+        id="phone-number"
+        name="phone-number"
+        placeholder="Enter your phone number"
+        required
+      />
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend class="fs-fieldset-title">Current Address</legend>
+    <div class="fs-field">
+      <label class="fs-label" for="street-address-1">
+        Street Address Line 1
+      </label>
+      <input
+        class="fs-input"
+        id="street-address-1"
+        name="street-address-1"
+        required
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="street-address-2">
+        Street Address Line 2
+      </label>
+      <input class="fs-input" id="street-address-2" name="street-address-2" />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="city">City</label>
+      <input class="fs-input" id="city" name="city" required />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="state-province">State/Province</label>
+      <input
+        class="fs-input"
+        id="state-province"
+        name="state-province"
+        required
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="postal-code">Postal Code</label>
+      <input class="fs-input" id="postal-code" name="postal-code" required />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="country">Country</label>
+      <input class="fs-input" id="country" name="country" required />
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend class="fs-fieldset-title">Employment Details</legend>
+    <div class="fs-field">
+      <label class="fs-label">Employment Status</label>
+      <div class="fs-radio-group">
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="employment-status-employed"
+              name="employment-status"
+              required
+              type="radio"
+              value="employed"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="employment-status-employed">
+              Employed
+            </label>
+          </div>
+        </div>
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="employment-status-unemployed"
+              name="employment-status"
+              required
+              type="radio"
+              value="unemployed"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="employment-status-unemployed">
+              Unemployed
+            </label>
+          </div>
+        </div>
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="employment-status-self-employed"
+              name="employment-status"
+              required
+              type="radio"
+              value="self-employed"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="employment-status-self-employed">
+              Self-Employed
+            </label>
+          </div>
+        </div>
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="employment-status-student"
+              name="employment-status"
+              required
+              type="radio"
+              value="student"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="employment-status-student">
+              Student
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="current-employer-name">
+        Current Employer Name
+      </label>
+      <input
+        class="fs-input"
+        id="current-employer-name"
+        name="current-employer-name"
+        placeholder="Enter your current employer&#x27;s name"
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="current-monthly-salary">
+        Current Monthly Salary
+      </label>
+      <input
+        class="fs-input"
+        id="current-monthly-salary"
+        name="current-monthly-salary"
+        placeholder="Enter your current monthly salary"
+      />
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend class="fs-fieldset-title">Preferences &amp; disclosures</legend>
+    <div class="fs-field">
+      <label class="fs-label" for="move-in-date">Preferred Move-in Date</label>
+      <input
+        class="fs-input"
+        id="move-in-date"
+        name="move-in-date"
+        placeholder="Select your preferred move-in date"
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="apartment-type">
+        Preferred Apartment Type
+      </label>
+      <select
+        class="fs-select"
+        id="apartment-type"
+        name="apartment-type"
+        required
+      >
+        <option value="studio">Studio</option>
+        <option value="1-bedroom">1 Bedroom</option>
+        <option value="2-bedroom">2 Bedroom</option>
+        <option value="3-bedroom">3 Bedroom</option>
+      </select>
+    </div>
+    <div class="fs-field">
+      <label class="fs-label">Do you have pets?</label>
+      <div class="fs-radio-group">
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="has-pets-yes"
+              name="has-pets"
+              required
+              type="radio"
+              value="yes"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="has-pets-yes">Yes</label>
+          </div>
+        </div>
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="has-pets-no"
+              name="has-pets"
+              required
+              type="radio"
+              value="no"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="has-pets-no">No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fs-field">
+      <label class="fs-label">Have you ever been evicted?</label>
+      <div class="fs-radio-group">
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="has-been-evicted-yes"
+              name="has-been-evicted"
+              required
+              type="radio"
+              value="yes"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="has-been-evicted-yes">Yes</label>
+          </div>
+        </div>
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="has-been-evicted-no"
+              name="has-been-evicted"
+              required
+              type="radio"
+              value="no"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="has-been-evicted-no">No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fs-field">
+      <label class="fs-label">Are you a convicted felon?</label>
+      <div class="fs-radio-group">
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="is-convicted-felon-yes"
+              name="is-convicted-felon"
+              required
+              type="radio"
+              value="yes"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="is-convicted-felon-yes">Yes</label>
+          </div>
+        </div>
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="is-convicted-felon-no"
+              name="is-convicted-felon"
+              required
+              type="radio"
+              value="no"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="is-convicted-felon-no">No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fs-field">
+      <label class="fs-label">Have you declared bankruptcy?</label>
+      <div class="fs-radio-group">
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="has-declared-bankruptcy-yes"
+              name="has-declared-bankruptcy"
+              required
+              type="radio"
+              value="yes"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="has-declared-bankruptcy-yes">
+              Yes
+            </label>
+          </div>
+        </div>
+        <div class="fs-radio-field">
+          <div class="fs-radio-wrapper">
+            <input
+              class="fs-radio"
+              id="has-declared-bankruptcy-no"
+              name="has-declared-bankruptcy"
+              required
+              type="radio"
+              value="no"
+            />
+          </div>
+          <div>
+            <label class="fs-label" for="has-declared-bankruptcy-no">No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <div class="fs-field col-span-full">
+    <label class="fs-label" for="additional-details">Additional Details</label>
+    <textarea
+      class="fs-textarea"
+      id="additional-details"
+      name="additional-details"
+      placeholder="Share any additional information"
+    ></textarea>
+  </div>
+  <div class="fs-button-group">
+    <button class="fs-button" type="submit">Submit</button>
+  </div>
+</form>
+     </body>
+</html>
+<script>
+   (function() {
+    // Enhanced person data for rental applications
+    const rentalData= {
+        // Personal Information
+        "first-name": "John",
+        "full-name":"John Doe",
+        "last-name": "Doe",
+        "email": "john.doe@example.com",
+        "phone": "(555) 123-4567",
+        "date-of-birth": "1990-01-15",
+        
+        // Current Address
+        "current-street": "123 Main St",
+        "current-city": "Anytown",
+        "current-state": "CA",
+        "current-zip": "90210",
+        "current-residence-duration": "3 years",
+        
+        // Employment Information
+        "employer-name": "ACME Corporation",
+        "job-title": "Software Engineer",
+        "employer-phone": "(555) 987-6543",
+        "annual-income": "85000",
+        
+        // Rental History
+        "previous-landlord-name": "Jane Smith",
+        "previous-landlord-phone": "(555) 456-7890",
+        "previous-address": "456 Oak Ave",
+        "previous-city": "Othertown",
+        "previous-state": "NY",
+        "previous-zip": "10001",
+        "previous-residence-duration": "2 years",
+        
+        // Vehicle Information
+        "vehicle-make": "Toyota",
+        "vehicle-model": "Camry",
+        "vehicle-year": "2018",
+        "vehicle-license": "ABC1234",
+        
+        // Emergency Contact
+        "emergency-contact-name": "Mary Johnson",
+        "emergency-contact-phone": "(555) 789-0123",
+        "emergency-contact-relationship": "Sister",
+        
+        // Other
+        "number-of-occupants": "2",
+        "pets": "1 cat named Whiskers",
+        "move-in-date": new Date(Date.now() + 30*24*60*60*1000).toISOString().split('T')[0],
+        "signature": "John Doe",
+        "date": new Date().toISOString().split('T')[0],
+
+        firstname: "John", 
+        firstName: "John",
+           first_name: "John", "first-name": "John",
+                fname: "John", givenName: "John", forename: "John",
+                
+                lastname: "Doe", lastName: "Doe", last_name: "Doe", "last-name": "Doe",
+                lname: "Doe", surname: "Doe", familyName: "Doe",
+                
+                middlename: "Michael", middleName: "Michael", middle_name: "Michael", "middle-name": "Michael",
+                mname: "Michael",
+                
+                fullname: "John Michael Doe", fullName: "John Michael Doe", full_name: "John Michael Doe",
+                "full-name": "John Michael Doe", name: "John Michael Doe", displayName: "John Michael Doe",
+                completeName: "John Michael Doe",
+                
+                // Username variations
+                username: "johndoe123", userName: "johndoe123", user_name: "johndoe123",
+                "user-name": "johndoe123", login: "johndoe123", userid: "johndoe123",
+                user: "johndoe123", handle: "johndoe123",
+                
+                // Email variations
+                email: "john.doe@example.com", emailAddress: "john.doe@example.com",
+                email_address: "john.doe@example.com", "email-address": "john.doe@example.com",
+                mail: "john.doe@example.com", e_mail: "john.doe@example.com", emailid: "john.doe@example.com",
+                
+                // Phone variations
+                phone: "+1-555-123-4567", telephone: "+1-555-123-4567", tel: "+1-555-123-4567",
+                mobile: "+1-555-123-4567", cell: "+1-555-123-4567", cellphone: "+1-555-123-4567",
+                phoneNumber: "+1-555-123-4567", phone_number: "+1-555-123-4567", "phone-number": "+1-555-123-4567",
+                mobileNumber: "+1-555-123-4567", contactNumber: "+1-555-123-4567",
+                homePhone: "+1-555-123-4567", workPhone: "+1-555-124-7890",
+                
+                // Date variations
+                dob: "1990-01-15", dateOfBirth: "1990-01-15", date_of_birth: "1990-01-15",
+                "date-of-birth": "1990-01-15", birthdate: "1990-01-15", birthDate: "1990-01-15",
+                birth_date: "1990-01-15", birthday: "01/15/1990", bday: "01/15/1990",
+                
+                // Age variations
+                age: "34", years: "34",
+                
+                // Address variations
+                address: "1234 Elm Street", address1: "1234 Elm Street", address2: "Apt 5B",
+                addressLine1: "1234 Elm Street", addressLine2: "Apt 5B",
+                address_line_1: "1234 Elm Street", address_line_2: "Apt 5B",
+                "address-line-1": "1234 Elm Street", "address-line-2": "Apt 5B",
+                street: "1234 Elm Street", streetAddress: "1234 Elm Street",
+                street_address: "1234 Elm Street", "street-address": "1234 Elm Street",
+                apartment: "Apt 5B", apt: "5B", suite: "5B", unit: "5B",
+                
+                // Location variations
+                city: "Los Angeles", town: "Los Angeles", locality: "Los Angeles",
+                state: "California", province: "California", region: "California", stateProvince: "California",
+                country: "United States", countryCode: "US", country_code: "US", "country-code": "US",
+                nation: "United States",
+                
+                zip: "90210", zipcode: "90210", zipCode: "90210", zip_code: "90210", "zip-code": "90210",
+                postal: "90210", postcode: "90210", postalCode: "90210", postal_code: "90210",
+                "postal-code": "90210", post: "90210",
+                
+                // Work information
+                company: "ACME Corporation", organization: "ACME Corporation", employer: "ACME Corporation",
+                workplace: "ACME Corporation",
+                
+                jobtitle: "Senior Software Developer", jobTitle: "Senior Software Developer",
+                job_title: "Senior Software Developer", "job-title": "Senior Software Developer",
+                title: "Senior Software Developer", position: "Senior Software Developer",
+                occupation: "Senior Software Developer", role: "Senior Software Developer",
+                designation: "Senior Software Developer",
+                
+                department: "Engineering", division: "Technology",
+                
+                // Website variations
+                website: "https://johndoe.com", url: "https://johndoe.com", homepage: "https://johndoe.com",
+                site: "https://johndoe.com", weburl: "https://johndoe.com",
+                
+                // Social media
+                linkedin: "https://linkedin.com/in/johndoe", twitter: "https://twitter.com/johndoe",
+                facebook: "https://facebook.com/johndoe", instagram: "@johndoe",
+                github: "https://github.com/johndoe",
+                
+                // Personal details
+                gender: "male", sex: "male", nationality: "American", citizenship: "US",
+                maritalStatus: "single", marital_status: "single", "marital-status": "single",
+                
+                // Emergency contact
+                emergencyContact: "Jane Doe", emergency_contact: "Jane Doe", "emergency-contact": "Jane Doe",
+                emergencyPhone: "+1-555-987-6543", emergency_phone: "+1-555-987-6543", "emergency-phone": "+1-555-987-6543",
+                
+                // Financial
+                salary: "75000", income: "75000",
+                
+                // Education
+                education: "Bachelor's Degree", degree: "Bachelor's Degree", qualification: "Bachelor's Degree",
+                school: "State University", university: "State University", college: "State University",
+                
+                // Preferences and agreements
+                newsletter: true, subscribe: true, marketing: true, promotions: true,
+                updates: true, notifications: true,
+                
+                terms: true, termsAndConditions: true, terms_and_conditions: true,
+                "terms-and-conditions": true, agree: true, accept: true, consent: true,
+                
+                privacy: true, privacyPolicy: true, privacy_policy: true, "privacy-policy": true,
+                
+                remember: true, rememberMe: true, remember_me: true, "remember-me": true,
+                
+                // Checkbox variations
+                checkbox: true, check: true, CheckboxData: true, selected: true,
+                
+                // Password variations (for demo/testing only)
+                password: "SecurePass123!", pwd: "SecurePass123!", pass: "SecurePass123!",
+                confirmPassword: "SecurePass123!", confirm_password: "SecurePass123!",
+                "confirm-password": "SecurePass123!", passwordConfirm: "SecurePass123!",
+                
+                // Additional common fields
+                comments: "This is a test comment", message: "Hello, this is a test message",
+                notes: "Additional notes here", description: "Brief description",
+                bio: "Software developer with 10+ years of experience",
+                about: "Passionate about technology and innovation",
+                
+                // ID variations
+                id: "12345", userId: "12345", user_id: "12345", "user-id": "12345",
+                customerId: "CUST-12345", customer_id: "CUST-12345", "customer-id": "CUST-12345",
+                
+                // Additional contact
+                fax: "+1-555-123-4568", skype: "john.doe.skype", whatsapp: "+1-555-123-4567",
+                
+                // Time preferences
+                timezone: "America/Los_Angeles", timeZone: "America/Los_Angeles",
+                time_zone: "America/Los_Angeles", "time-zone": "America/Los_Angeles",
+                
+                // Language preferences
+                language: "English", lang: "en", locale: "en-US",
+                
+                // Security questions (for demo only)
+                securityQuestion: "What was your first pet's name?", securityAnswer: "Fluffy",
+                
+                // Rating/feedback
+                rating: "5", feedback: "Excellent service", review: "Great experience overall",
+               
+         firstname: "John",
+    firstName: "John",
+    first_name: "John",
+    "first-name": "John",
+    fname: "John",
+    givenName: "John",
+    forename: "John",
+    
+    lastname: "Doe",
+    lastName: "Doe",
+    last_name: "Doe",
+    "last-name": "Doe",
+    lname: "Doe",
+    surname: "Doe",
+    familyName: "Doe",
+    
+    middlename: "Michael",
+    middleName: "Michael",
+    middle_name: "Michael",
+    "middle-name": "Michael",
+    mname: "Michael",
+    
+    fullname: "John Michael Doe",
+    fullName: "John Michael Doe",
+    full_name: "John Michael Doe",
+    "full-name": "John Michael Doe",
+    name: "John Michael Doe",
+    displayName: "John Michael Doe",
+    completeName: "John Michael Doe",
+    
+    // Username variations
+    username: "johndoe123",
+    userName: "johndoe123",
+    user_name: "johndoe123",
+    "user-name": "johndoe123",
+    login: "johndoe123",
+    userid: "johndoe123",
+    user: "johndoe123",
+    handle: "johndoe123",
+    
+    // Email variations
+    email: "john.doe@example.com",
+    emailAddress: "john.doe@example.com",
+    email_address: "john.doe@example.com",
+    "email-address": "john.doe@example.com",
+    mail: "john.doe@example.com",
+    e_mail: "john.doe@example.com",
+    emailid: "john.doe@example.com",
+    
+    // Phone variations
+    phone: "+1-555-123-4567",
+    telephone: "+1-555-123-4567",
+    tel: "+1-555-123-4567",
+    mobile: "+1-555-123-4567",
+    cell: "+1-555-123-4567",
+    cellphone: "+1-555-123-4567",
+    phoneNumber: "+1-555-123-4567",
+    phone_number: "+1-555-123-4567",
+    "phone-number": "+1-555-123-4567",
+    mobileNumber: "+1-555-123-4567",
+    contactNumber: "+1-555-123-4567",
+    homePhone: "+1-555-123-4567",
+    workPhone: "+1-555-124-7890",
+    
+    // Date variations
+    dob: "1990-01-15",
+    dateOfBirth: "1990-01-15",
+    date_of_birth: "1990-01-15",
+    "date-of-birth": "1990-01-15",
+    birthdate: "1990-01-15",
+    birthDate: "1990-01-15",
+    birth_date: "1990-01-15",
+    birthday: "01/15/1990",
+    bday: "01/15/1990",
+    
+    // Age variations
+    age: "34",
+    years: "34",
+    
+    // Address variations
+    address: "1234 Elm Street",
+    address1: "1234 Elm Street",
+    address2: "Apt 5B",
+    addressLine1: "1234 Elm Street",
+    addressLine2: "Apt 5B",
+    address_line_1: "1234 Elm Street",
+    address_line_2: "Apt 5B",
+    "address-line-1": "1234 Elm Street",
+    "address-line-2": "Apt 5B",
+    street: "1234 Elm Street",
+    streetAddress: "1234 Elm Street",
+    street_address: "1234 Elm Street",
+    "street-address": "1234 Elm Street",
+    apartment: "Apt 5B",
+    apt: "5B",
+    suite: "5B",
+    unit: "5B",
+    
+    // Location variations
+    city: "Los Angeles",
+    town: "Los Angeles",
+    locality: "Los Angeles",
+    
+    state: "California",
+    province: "California",
+    region: "California",
+    stateProvince: "California",
+    
+    country: "United States",
+    countryCode: "US",
+    country_code: "US",
+    "country-code": "US",
+    nation: "United States",
+    
+    zip: "90210",
+    zipcode: "90210",
+    zipCode: "90210",
+    zip_code: "90210",
+    "zip-code": "90210",
+    postal: "90210",
+    postcode: "90210",
+    postalCode: "90210",
+    postal_code: "90210",
+    "postal-code": "90210",
+    post: "90210",
+    
+    // Work information
+    company: "ACME Corporation",
+    organization: "ACME Corporation",
+    employer: "ACME Corporation",
+    workplace: "ACME Corporation",
+    
+    jobtitle: "Senior Software Developer",
+    jobTitle: "Senior Software Developer",
+    job_title: "Senior Software Developer",
+    "job-title": "Senior Software Developer",
+    title: "Senior Software Developer",
+    position: "Senior Software Developer",
+    occupation: "Senior Software Developer",
+    role: "Senior Software Developer",
+    designation: "Senior Software Developer",
+    
+    department: "Engineering",
+    division: "Technology",
+    
+    // Website variations
+    website: "https://johndoe.com",
+    url: "https://johndoe.com",
+    homepage: "https://johndoe.com",
+    site: "https://johndoe.com",
+    weburl: "https://johndoe.com",
+    
+    // Social media
+    linkedin: "https://linkedin.com/in/johndoe",
+    twitter: "https://twitter.com/johndoe",
+    facebook: "https://facebook.com/johndoe",
+    instagram: "@johndoe",
+    github: "https://github.com/johndoe",
+    
+    // Personal details
+    gender: "male",
+    sex: "male",
+    
+    nationality: "American",
+    citizenship: "US",
+    
+    maritalStatus: "single",
+    marital_status: "single",
+    "marital-status": "single",
+    
+    // Emergency contact
+    emergencyContact: "Jane Doe",
+    emergency_contact: "Jane Doe",
+    "emergency-contact": "Jane Doe",
+    emergencyPhone: "+1-555-987-6543",
+    emergency_phone: "+1-555-987-6543",
+    "emergency-phone": "+1-555-987-6543",
+    
+    // Financial
+    salary: "75000",
+    income: "75000",
+    
+    // Education
+    education: "Bachelor's Degree",
+    degree: "Bachelor's Degree",
+    qualification: "Bachelor's Degree",
+    school: "State University",
+    university: "State University",
+    college: "State University",
+    
+    // Preferences and agreements
+    newsletter: true,
+    subscribe: true,
+    marketing: true,
+    promotions: true,
+    updates: true,
+    notifications: true,
+    
+    terms: true,
+    termsAndConditions: true,
+    terms_and_conditions: true,
+    "terms-and-conditions": true,
+    agree: true,
+    accept: true,
+    consent: true,
+    
+    privacy: true,
+    privacyPolicy: true,
+    privacy_policy: true,
+    "privacy-policy": true,
+    
+    remember: true,
+    rememberMe: true,
+    remember_me: true,
+    "remember-me": true,
+    
+    // Checkbox variations
+    checkbox: true,
+    check: true,
+    CheckboxData: true,
+    selected: true,
+    
+    // Password variations (for demo/testing only)
+    password: "SecurePass123!",
+    pwd: "SecurePass123!",
+    pass: "SecurePass123!",
+    confirmPassword: "SecurePass123!",
+    confirm_password: "SecurePass123!",
+    "confirm-password": "SecurePass123!",
+    passwordConfirm: "SecurePass123!",
+    
+    // Additional common fields
+    comments: "This is a test comment",
+    message: "Hello, this is a test message",
+    notes: "Additional notes here",
+    description: "Brief description",
+    bio: "Software developer with 10+ years of experience",
+    about: "Passionate about technology and innovation",
+    
+    // ID variations
+    id: "12345",
+    userId: "12345",
+    user_id: "12345",
+    "user-id": "12345",
+    customerId: "CUST-12345",
+    customer_id: "CUST-12345",
+    "customer-id": "CUST-12345",
+    
+    // Additional contact
+    fax: "+1-555-123-4568",
+    skype: "john.doe.skype",
+    whatsapp: "+1-555-123-4567",
+    
+    // Time preferences
+    timezone: "America/Los_Angeles",
+    timeZone: "America/Los_Angeles",
+    time_zone: "America/Los_Angeles",
+    "time-zone": "America/Los_Angeles",
+    
+    // Language preferences
+    language: "English",
+    lang: "en",
+    locale: "en-US",
+    
+    // Security questions (for demo only)
+    securityQuestion: "What was your first pet's name?",
+    securityAnswer: "Fluffy",
+    
+    // Rating/feedback
+    rating: "5",
+    feedback: "Excellent service",
+    review: "Great experience overall"
+
+    };
+
+     function getFormId(form, forms) {
+                if (form.id) return form.id;
+                if (form.getAttribute('name')) return form.getAttribute('name');
+                if (form.getAttribute('action')) {
+                    const action = form.getAttribute('action');
+                    return action.split('/').pop().split('.').shift() || `form_${Array.from(forms).indexOf(form)}`;
+                }
+                return `form_${Array.from(forms).indexOf(form)}`;
+            }
+
+            // Find matching key for form field
+            function findMatchingKey(field) {
+                const name = field.name ? field.name.toLowerCase() : '';
+                const id = field.id ? field.id.toLowerCase() : '';
+                const placeholder = field.placeholder ? field.placeholder.toLowerCase() : '';
+                const label = field.labels && field.labels[0] ? field.labels[0].textContent.toLowerCase() : '';
+                const keys = Object.keys(personData);
+
+                // Exact matches first
+                if (name && personData[name] !== undefined) return name;
+                if (id && personData[id] !== undefined) return id;
+
+                // Partial matches
+                const checkboxSynonyms = ['subscribe', 'option', 'check', 'accept', 'agree', 'consent'];
+                for (const key of keys) {
+                    if ((name && name.includes(key)) ||
+                        (id && id.includes(key)) ||
+                        (placeholder && placeholder.includes(key)) ||
+                        (label && label.includes(key)) ||
+                        (checkboxSynonyms.some(syn => 
+                            (name.includes(syn) && key.includes('newsletter')) ||
+                            (name.includes(syn) && key.includes('terms')) ||
+                            (name.includes(syn) && key.includes('privacy'))
+                        ))) {
+                        return key;
+                    }
+                }
+                return null;
+            }
+
+            // Bypass autocomplete restrictions
+            function bypassAutocompleteRestrictions(form) {
+                const inputs = form.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    // Remove autocomplete restrictions
+                    input.removeAttribute('autocomplete');
+                    input.setAttribute('autocomplete', 'new-password');
+                    
+                    // Remove readonly temporarily
+                    if (input.hasAttribute('readonly')) {
+                        input.removeAttribute('readonly');
+                        input.dataset.wasReadonly = 'true';
+                    }
+                    
+                    // Remove disabled temporarily
+                    if (input.hasAttribute('disabled')) {
+                        input.removeAttribute('disabled');
+                        input.dataset.wasDisabled = 'true';
+                    }
+                    
+                    // Trigger focus to activate field
+                    input.focus();
+                    input.blur();
+                });
+            }
+
+            // Restore original field states
+            function restoreFieldStates(form) {
+                const inputs = form.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    if (input.dataset.wasReadonly) {
+                        input.setAttribute('readonly', 'true');
+                        delete input.dataset.wasReadonly;
+                    }
+                    if (input.dataset.wasDisabled) {
+                        input.setAttribute('disabled', 'true');
+                        delete input.dataset.wasDisabled;
+                    }
+                });
+            }
+
+            // Autofill form with advanced techniques
+            function autofillForm(form) {
+                const usedFields = new Set();
+                
+                // Bypass restrictions first
+                bypassAutocompleteRestrictions(form);
+                
+                // Wait a bit for restrictions to be bypassed
+                setTimeout(() => {
+                    // Fill text inputs, selects, and textareas
+                    const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="number"], input[type="date"], input[type="search"], select, textarea');
+                    inputs.forEach(input => {
+                        const key = findMatchingKey(input);
+                        if (key && !usedFields.has(key) && personData[key] !== undefined) {
+                            // Multiple methods to set value (bypass restrictions)
+                            input.value = personData[key];
+                            input.setAttribute('value', personData[key]);
+                            
+                            // Trigger events to ensure the value is recognized
+                            const events = ['input', 'change', 'keyup', 'keydown', 'blur'];
+                            events.forEach(eventType => {
+                                const event = new Event(eventType, { bubbles: true });
+                                input.dispatchEvent(event);
+                            });
+                            
+                            // For React/Vue forms
+                            if (input._valueTracker) {
+                                input._valueTracker.setValue('');
+                            }
+                            
+                            usedFields.add(key);
+                        }
+                    });
+
+                    // Handle checkboxes
+                    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+                    checkboxes.forEach(checkbox => {
+                        const key = findMatchingKey(checkbox);
+                        if (key && !usedFields.has(key) && personData[key] !== undefined) {
+                            checkbox.checked = !!personData[key];
+                            checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+                            usedFields.add(key);
+                        }
+                    });
+
+                    // Handle radio buttons
+                    const radios = form.querySelectorAll('input[type="radio"]');
+                    const radioGroups = {};
+                    radios.forEach(radio => {
+                        const name = radio.name;
+                        if (!radioGroups[name]) radioGroups[name] = [];
+                        radioGroups[name].push(radio);
+                    });
+                    
+                    Object.keys(radioGroups).forEach(groupName => {
+                        const group = radioGroups[groupName];
+                        if (group.length > 0) {
+                            // Select first radio in group
+                            group[0].checked = true;
+                            group[0].dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    });
+                    
+                    // Restore field states after a delay
+                    setTimeout(() => {
+                        restoreFieldStates(form);
+                    }, 1000);
+                    
+                }, 100);
+            }
+
+            // Main function to process all forms
+            function processAllForms() {
+                const forms = document.querySelectorAll('form');
+                if (!forms.length) {
+                    console.warn('No forms found on the page');
+                    return { success: false, message: 'No forms found on the page', count: 0 };
+                }
+
+                let filledCount = 0;
+                forms.forEach((form, index) => {
+                    try {
+                        autofillForm(form);
+                        filledCount++;
+                        
+                        // Add submit handler
+                        const formId = getFormId(form, forms);
+                        form.addEventListener('submit', function(e) {
+                            console.log(`Form ${formId} submitted with autofilled data`);
+                        });
+                        
+                    } catch (error) {
+                        console.error(`Error filling form ${index}:`, error);
+                    }
+                });
+
+                return { 
+                    success: true, 
+                    message: `Successfully filled ${filledCount} form(s)`, 
+                    count: filledCount 
+                };
+            }
+
+            // Detect forms function
+            function detectAllForms() {
+                const forms = document.querySelectorAll('form');
+                const formInfo = Array.from(forms).map((form, index) => {
+                    const inputs = form.querySelectorAll('input, select, textarea');
+                    return {
+                        index: index,
+                        id: getFormId(form, forms),
+                        inputs: inputs.length,
+                        action: form.action || 'No action',
+                        method: form.method || 'GET'
+                    };
+                });
+                
+                return {
+                    success: true,
+                    count: forms.length,
+                    forms: formInfo
+                };
+            }
+
+            // Clear all forms function
+            function clearAllForms() {
+                const forms = document.querySelectorAll('form');
+                let clearedCount = 0;
+                
+                forms.forEach(form => {
+                    const inputs = form.querySelectorAll('input, select, textarea');
+                    inputs.forEach(input => {
+                        if (input.type === 'checkbox' || input.type === 'radio') {
+                            input.checked = false;
+                        } else {
+                            input.value = '';
+                        }
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    });
+                    clearedCount++;
+                });
+                
+                return {
+                    success: true,
+                    message: `Cleared ${clearedCount} form(s)`,
+                    count: clearedCount
+                };
+            }
+
+            // Expose functions globally for bookmarklet use
+            window.universalFormFill = {
+                fill: processAllForms,
+                detect: detectAllForms,
+                clear: clearAllForms,
+                bypass: () => {
+                    const forms = document.querySelectorAll('form');
+                    forms.forEach(bypassAutocompleteRestrictions);
+                    return { success: true, message: 'Bypassed autocomplete on all forms' };
+                }
+            };
+
+            // Auto-run if called directly
+            if (typeof window !== 'undefined' && !window.universalFormFillLoaded) {
+                window.universalFormFillLoaded = true;
+                return processAllForms();
+            }
+        })();
+    
+        // Page-specific functions
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `status ${type}`;
+            statusDiv.textContent = message;
+            setTimeout(() => {
+                statusDiv.textContent = '';
+                statusDiv.className = '';
+            }, 5000);
+        }
+
+        function autofillCurrentPageForms() {
+            const result = window.universalFormFill.fill();
+            if (result.success) {
+                showStatus(result.message, 'success');
+            } else {
+                showStatus(result.message, 'error');
+            }
+        }
+
+        function detectForms() {
+            const result = window.universalFormFill.detect();
+            if (result.success) {
+                let message = `Found ${result.count} form(s):\n`;
+                result.forms.forEach(form => {
+                    message += `- Form "${form.id}": ${form.inputs} inputs, Action: ${form.action}\n`;
+                });
+                showStatus(`Found ${result.count} form(s) - Check console for details`, 'info');
+                console.log('Form Detection Results:', result.forms);
+            } else {
+                showStatus('No forms detected', 'error');
+            }
+        }
+
+        function clearAllForms() {
+            const result = window.universalFormFill.clear();
+            showStatus(result.message, 'success');
+        }
+
+        function bypassAutocomplete() {
+            const result = window.universalFormFill.bypass();
+            showStatus(result.message, 'success');
+        }
+
+        function copyBookmarklet() {
+            const bookmarkletCode = `javascript:(function(){${document.getElementById('autofillScript').textContent}})();`;
+            navigator.clipboard.writeText(bookmarkletCode).then(() => {
+                showStatus('Bookmarklet code copied to clipboard!', 'success');
+            }).catch(() => {
+                showStatus('Failed to copy - please select and copy manually', 'error');
+            });
+        }
+
+        function copyScriptCode() {
+            const scriptCode = document.getElementById('autofillScript').textContent;
+            navigator.clipboard.writeText(scriptCode).then(() => {
+                showStatus('Script code copied to clipboard!', 'success');
+            }).catch(() => {
+                showStatus('Failed to copy - please select and copy manually', 'error');
+            });
+        }
+
+        // Initialize the script when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load the autofill script
+            eval(document.getElementById('autofillScript').textContent);
+            
+            // Display the script code
+            document.getElementById('scriptCode').innerHTML = `<pre>${document.getElementById('autofillScript').textContent}</pre>`;
+            
+            // Demo form submission handler
+            document.getElementById('demoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showStatus('Demo form submitted successfully! Check console for data.', 'success');
+                
+                const formData = new FormData(this);
+                const data = {};
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                console.log('Demo form data:', data);
+            });
+        });
+</script>

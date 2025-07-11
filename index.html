@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+   <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <img src="Capture.PNG">
+        <h2>Register now</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+        
+        <form id="form" action="#" method="POST">
+            <div class="row">
+                <div class="form-group">
+                    <label for="firstname">First name</label>
+                    <input type="text" name="firstname" id="firstname"  required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last name</label>
+                    <input type="text" name="lastname" id="lastname" required >
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <label for="email" >Email</label>
+                    <input type="email" name="email" id="email" placeholder="ha@gmail.com" required >
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input type="text" name="tel" id="tel" placeholder="+92318947638" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Street Address</label>
+                <input type="text" name="address" id="address" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="address2">Street Address Line 2</label>
+                <input type="text" name="address2" id="address2" required>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <label for="state">State/Province</label>
+                    <input type="text" name="state" id="state" required>
+                </div>
+                
+                   <div class="form-group">
+    <label for="country">Country</label>
+    <select name="country" id="country" class="form-input" required>
+        <option value="">Select Country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="UK">United Kingdom</option>
+        <option value="AU">Australia</option>
+        <option value="PK">Pakistan</option>
+        <option value="IN">India</option>
+        <option value="JP">Japan</option>
+        <option value="DE">Germany</option>
+        <option value="FR">France</option>
+          <option value="">Select Country</option>
+        <option value="AF">Afghanistan</option>
+        <option value="AX">Åland Islands</option>
+        <option value="AL">Albania</option>
+        <option value="ZM">Zambia</option>
+        <option value="ZW">Zimbabwe</option>
+        <!-- Add more countries as needed -->
+    </select>
+</div></div>
+            
+            
+            <div class="row">
+                <div class="form-group">
+                    <label for="post">Post/Zip code</label>
+                    <input type="text" name="postcode" id="post"required >
+                </div>
+                <div class="form-group">
+                    <label for="area">Area Code</label>
+                    <input type="text" name="area" id="area"required >
+                </div>
+            </div>
+            
+            <div class="checkbox">
+                <input type="checkbox" id="CheckboxData" required>
+                <label for="CheckboxData">I agree to the terms, conditions, and policies</label>
+            </div>
+            
+            <button type="submit">Register Now</button>
+        </form>
+    </div>
+
+    <script src="newfinal.js">
+       
+    </script>
+</body>
+</html>
